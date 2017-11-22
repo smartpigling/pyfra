@@ -14,13 +14,17 @@
 // require('./script.js');
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DatePicker } from 'antd';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+import AppRoutes from './routes';
+
+
+const store = configureStore();
 
 ReactDOM.render(
-    <div>
-        <h1>Hello, world!sfdasdf递四方速递</h1>
-        <DatePicker />
-    </div>
-    ,
-  document.getElementById('root'),
+  <Provider store={store}>
+    {AppRoutes}
+  </Provider>,
+  document.getElementById('root')
 );
+

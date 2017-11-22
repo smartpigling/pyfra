@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for, jsonify
 from flask_login import login_required, login_user, logout_user
 
 from pyfra.extensions import login_manager
@@ -31,7 +31,7 @@ def home():
             return redirect(redirect_url)
         else:
             flash_errors(form)
-    return render_template('public/home.html', form=form)
+    return render_template('public/index.html', form=form)
 
 
 @blueprint.route('/logout/')
@@ -61,3 +61,17 @@ def about():
     """About page."""
     form = LoginForm(request.form)
     return render_template('public/about.html', form=form)
+
+@blueprint.route('/test/')
+def test():
+    data_list=[
+        {'title':'aaaa','url':'1111','desc':'1111','subdesc':'aaaa'},
+        {'title':'bbbb','url':'1111','desc':'1111','subdesc':'aaaa'},
+        {'title':'cccc','url':'1111','desc':'1111','subdesc':'aaaa'},
+        {'title':'dddd','url':'1111','desc':'1111','subdesc':'aaaa'},
+    ]
+    return jsonify(
+        message='OK',
+        data= data_list
+    )
+
