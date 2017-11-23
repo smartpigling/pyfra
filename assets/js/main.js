@@ -1,30 +1,27 @@
-/*
- * Main Javascript file for pyfra.
- *
- * This file bundles all of your javascript together using webpack.
- */
+import dva from 'dva';
+import example from './models/example';
+import RouterConfig from './router';
 
-// JavaScript modules
-// require('jquery');
-// require('font-awesome-webpack');
-// require('bootstrap');
+// 1. Initialize
+const app = dva({
+  initialState: {
+    examples: [
+      {name: 'dva1', id: 1},
+      {name: 'dva2', id: 2},
+      {name: 'dva3', id: 3},
+    ],
+  },
+});
 
-// // Your own code
-// require('./plugins.js');
-// require('./script.js');
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
-import AppRoutes from './routes';
+// 2. Plugins
+// app.use({});
 
+// 3. Model
+app.model(example);
 
-const store = configureStore();
+// 4. Router
+// app.router(require('./router'));
+app.router(RouterConfig);
 
-ReactDOM.render(
-  <Provider store={store}>
-    {AppRoutes}
-  </Provider>,
-  document.getElementById('root')
-);
-
+// 5. Start
+app.start('#root');
